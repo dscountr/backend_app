@@ -140,4 +140,5 @@ AUTH_USER_MODEL = 'authentication.User'
 # Activate Django-Heroku.
 django_heroku.settings(locals())
 
+print("This is the DB",DATABASES)
 del DATABASES['default']['OPTIONS']['sslmode']
