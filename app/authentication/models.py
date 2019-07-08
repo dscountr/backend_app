@@ -79,7 +79,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         """
         Generates a firebase token
         """
-        uid = config('some-uid')
+        uid = 'some-uid'
         token = auth.create_custom_token(uid)
 
         return token.decode('utf-8')
