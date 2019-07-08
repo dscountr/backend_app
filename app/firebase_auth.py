@@ -14,10 +14,10 @@ payload = {
     "private_key": private_key,
     "client_email": config("CLIENT_EMAIL"),
     "client_id": config("CLIENT_ID"),
-    "auth_uri": config("AUTH_URI"),
-    "token_uri": config("TOKEN_URI"),
-    "auth_provider_x509_cert_url": config("AUTH_PROVIDER_X509_CERT_URL"),
-    "client_x509_cert_url": config("CLIENT_X509_CERT_URL"),
+    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": "https://oauth2.googleapis.com/token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+    "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-hq70h%40dscountr-49c53.iam.gserviceaccount.com",
 }
 
 cred = credentials.Certificate(payload)
@@ -28,10 +28,10 @@ logger = logging.getLogger(__name__)
 
 
 class FirebaseTokenAuthentication(TokenAuthentication):
-    def authenticate_credentials(self, key):
+    def authenticate_credentials(self, id_token):
         try:
-            token = auth.verify_id_token(key)
-        except Exception:
+            token = auth.verify_id_token(id_token)
+        except Exception as e:
             raise exceptions.AuthenticationFailed(
                 "Unable to authenticate. Invalid or expired token")
         else:

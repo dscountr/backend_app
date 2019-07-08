@@ -1,6 +1,6 @@
 from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
-from .serializers import (RegistrationSerializer,)
+from .serializers import (RegistrationSerializer, LoginSerializer)
 from . import models
 
 
@@ -9,6 +9,11 @@ class RegistrationViewSet(ModelViewSet):
     serializer_class = RegistrationSerializer
     queryset = models.User.objects.all()
     http_method_names = ['post']
+
+
+class LoginViewSet(ModelViewSet):
+    permission_classes = (AllowAny,)
+    serializer_class = LoginSerializer
 
 
 class UserViewSet(ModelViewSet):

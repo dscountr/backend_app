@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'django_extensions',
     'app.authentication',
+    'app.user_profile',
     'phonenumber_field',
 ]
 
@@ -113,6 +114,11 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.BasicAuthentication",
         "rest_framework.authentication.SessionAuthentication",
     ),
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        'app.firebase_auth.FirebaseTokenAuthentication',
+        "rest_framework.authentication.BasicAuthentication",
+        "rest_framework.authentication.SessionAuthentication",
+    ),
 }
 
 
@@ -140,5 +146,4 @@ AUTH_USER_MODEL = 'authentication.User'
 # Activate Django-Heroku.
 django_heroku.settings(locals())
 
-print("This is the DB",DATABASES)
 del DATABASES['default']['OPTIONS']['sslmode']
