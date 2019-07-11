@@ -114,11 +114,6 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.BasicAuthentication",
         "rest_framework.authentication.SessionAuthentication",
     ),
-    "DEFAULT_AUTHENTICATION_CLASSES": (
-        'app.firebase_auth.FirebaseTokenAuthentication',
-        "rest_framework.authentication.BasicAuthentication",
-        "rest_framework.authentication.SessionAuthentication",
-    ),
 }
 
 
