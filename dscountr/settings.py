@@ -89,6 +89,10 @@ DATABASES = {
     'default': dj_database_url.config()
 }
 
+# AUTHENTICATION_BACKENDS = (
+#     # ... your other backends
+#     'app.auth_backend.PasswordlessAuthBackend',
+# )
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators

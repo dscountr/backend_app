@@ -14,6 +14,7 @@ class RegistrationViewSet(ModelViewSet):
 class LoginViewSet(ModelViewSet):
     permission_classes = (AllowAny,)
     serializer_class = LoginSerializer
+    queryset = models.User.objects.all()
 
 
 class UserViewSet(ModelViewSet):

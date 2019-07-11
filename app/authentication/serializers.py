@@ -1,3 +1,4 @@
+import json
 from rest_framework import serializers
 from django.contrib.auth import authenticate
 from rest_framework.validators import UniqueValidator
@@ -5,16 +6,10 @@ from .models import User
 from firebase_admin import auth
 from phonenumber_field.serializerfields import PhoneNumberField
 from ..user_profile.models import Profile
+from ..auth_backend import PasswordlessAuthBackend
 
 
 class RegistrationSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(
-        max_length=128,
-        min_length=8,
-        write_only=True
-    )
-
-    token = serializers.CharField(max_length=255, read_only=True)
     phone_number = PhoneNumberField(
         validators=[
             UniqueValidator(queryset=User.objects.all(),
@@ -23,37 +18,34 @@ class RegistrationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['id', 'email', 'username', 'password', 'token',
+        fields = ['id', 'email', 'username',
                   'phone_number', 'date_of_birth', 'gender']
 
     def create(self, validated_data):
         return User.objects.createuser(**validated_data)
 
 
-class LoginSerializer(serializers.ModelSerializer):
-    email = serializers.CharField(max_length=255)
-    username = serializers.CharField(max_length=255, read_only=True)
-    password = serializers.CharField(
-        max_length=128, write_only=True)
+class LoginSerializer(serializers.Serializer):
+    phone_number = PhoneNumberField()
+    email = serializers.CharField(max_length=255, write_only=True)
+    password = serializers.CharField(max_length=128, write_only=True)
     token = serializers.CharField(max_length=255, read_only=True)
 
     class Meta:
         model = User
-        fields = ['email', 'username', 'password', 'token']
+        fields = ['phone_number', 'username', 'token']
 
-    def create(self, data):
-        email = data.get('email')
+    def validate(self, data):
+        print('<><><><><><>', data)
+
+        phone_number = data.get('phone_number')
         password = data.get('password')
+        email = data.get('email')
 
-        user = authenticate(username=email, password=password)
+        user = authenticate(username=phone_number, password=password)
+        print('//////', user.__dir__())
 
         if user is None:
-            raise serializers.ValidationError(
-                'A user with this email and password was not found.'
-            )
+            raise serializers.ValidationError()
 
-        return {
-            'email': user.email,
-            'username': user.username,
-            'token': user.token
-        }
+        return data
