@@ -7,6 +7,7 @@ from firebase_admin import auth
 from phonenumber_field.serializerfields import PhoneNumberField
 from ..user_profile.models import Profile
 from ..auth_backend import PasswordlessAuthBackend
+from decouple import config
 
 
 class RegistrationSerializer(serializers.ModelSerializer):
@@ -27,25 +28,8 @@ class RegistrationSerializer(serializers.ModelSerializer):
 
 class LoginSerializer(serializers.Serializer):
     phone_number = PhoneNumberField()
-    email = serializers.CharField(max_length=255, write_only=True)
-    password = serializers.CharField(max_length=128, write_only=True)
     token = serializers.CharField(max_length=255, read_only=True)
 
     class Meta:
         model = User
-        fields = ['phone_number', 'username', 'token']
-
-    def validate(self, data):
-        print('<><><><><><>', data)
-
-        phone_number = data.get('phone_number')
-        password = data.get('password')
-        email = data.get('email')
-
-        user = authenticate(username=phone_number, password=password)
-        print('//////', user.__dir__())
-
-        if user is None:
-            raise serializers.ValidationError()
-
-        return data
+        fields = ['id', 'phone_number', 'token']

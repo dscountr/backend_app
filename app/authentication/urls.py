@@ -14,9 +14,15 @@ class OptionalTrailingSlashRouter(SimpleRouter):
 
 
 router = OptionalTrailingSlashRouter()
+
+# users
 router.register('users', RegistrationViewSet, 'user')
 router.register('profiles', UserProfileViewSet, 'profile')
 router.register('login', LoginViewSet, 'login')
 
 
-urlpatterns = router.urls
+urlpatterns = [
+    # path("login/", LoginViewSet.as_view({'post': 'post'}), name="login"),
+]
+
+urlpatterns += router.urls

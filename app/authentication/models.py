@@ -1,3 +1,5 @@
+import jwt
+from datetime import datetime, timedelta
 from django.conf import settings
 from django.contrib.auth.models import (
     AbstractBaseUser, BaseUserManager, PermissionsMixin
@@ -53,6 +55,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     phone_number = PhoneNumberField(db_index=True, unique=True)
     date_of_birth = models.DateField()
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
+    password = models.CharField(max_length=255, default=config('P_WORD'))
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -86,7 +89,11 @@ class User(AbstractBaseUser, PermissionsMixin):
         """
         Generates a firebase token
         """
-        uid = 'some-uid'
-        token = auth.create_custom_token(uid)
-
+        user_details = {'email': self.email}
+        token = jwt.encode(
+            {
+                'user_data': user_details,
+                'exp': datetime.now() + timedelta(hours=24)
+            }, settings.SECRET_KEY, algorithm='HS256'
+        )
         return token.decode('utf-8')
