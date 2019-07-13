@@ -22,6 +22,23 @@ class LoginViewSet(ModelViewSet):
     filterset_class = UserFilter
     http_method_names = ['get', ]
 
+    DEFAULT_LOGIN_DATA = \
+            dict([(field, "") for field in LoginSerializer.Meta.fields])
+
+    def list(self, request, *args, **kwargs):
+        print(dir(request))
+        print(args, kwargs, request.content_type, request.data, request.query_params)
+        phone_number = request.query_params.get("phone_number", "")
+        print(phone_number)
+        if not phone_number:
+            data = self.DEFAULT_LOGIN_DATA
+        else:
+            user = models.User.objects.get_by_natural_key(phone_number)
+            data = LoginSerializer(user).data
+
+        return Response(data)
+
+
     # def get_object(self):
     #     print(self.kwargs)
     #     user = self.request.user
