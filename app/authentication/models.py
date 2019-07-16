@@ -87,7 +87,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def _generate_firebase_token(self):
         """
-        Generates a firebase token
+        Generates a jwt token
         """
         user_details = {'email': self.email}
         token = jwt.encode(

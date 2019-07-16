@@ -9,15 +9,15 @@ User = get_user_model()
 
 class Profile(TimeStampedModel):
     user = models.OneToOneField(
-        "authentication.User", related_name="profile", on_delete=models.CASCADE)
-    first_name = models.CharField(max_length=30, blank=True)
-    last_name = models.CharField(max_length=30, blank=True)
+        User, related_name="profile", on_delete=models.CASCADE)
+    first_name = models.CharField(max_length=50, blank=False)
+    last_name = models.CharField(max_length=50, blank=False)
 
     class Meta:
         ordering = ['-created', ]
 
     def __str__(self):
-        return self.user.username
+        return self.user.email
 
 
 @receiver(post_save, sender=User)
