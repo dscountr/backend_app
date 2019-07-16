@@ -1,0 +1,76 @@
+{% extends "admin/base.html" %}
+{% load staticfiles i18n %}
+
+{% block title %}{{ title }} | {{ site_title|default:_('Dscountr.') }}{% endblock %}
+
+{% block branding %}
+    <h1 id="site-name">
+        {% trans "Dscountr." %}
+    </h1>
+{% endblock %}
+
+{% block extrastyle %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static '/css/branding.css' %}">
+{% endblock %}
+
+{% block nav-global %}
+    <a href="#" class="sidebar-link icon">
+        <span class="sidebar-link-label">
+            <span class="sidebar-link-icon"></span>
+            {% trans 'Campaigns' %}
+        </span>
+    </a>
+    <a href="#" class="sidebar-link icon">
+        <span class="sidebar-link-label">
+            <span class="sidebar-link-icon"></span>
+            {% trans 'Surveys' %}
+        </span>
+    </a>
+    <a href="#" class="sidebar-link icon">
+            <span class="sidebar-link-label">
+                <span class="sidebar-link-icon"></span>
+                {% trans 'Advertisers' %}
+            </span>
+    </a>
+    <a href="#" class="sidebar-link icon">
+            <span class="sidebar-link-label">
+                <span class="sidebar-link-icon"></span>
+                {% trans 'Subscribers' %}
+            </span>
+    </a>
+    <a href="#" class="sidebar-link icon">
+            <span class="sidebar-link-label">
+                <span class="sidebar-link-icon"></span>
+                {% trans 'Retailers' %}
+            </span>
+    </a>
+    <a href="#" class="sidebar-link icon">
+            <span class="sidebar-link-label">
+                <span class="sidebar-link-icon"></span>
+                {% trans 'Products' %}
+            </span>
+    </a>
+    <a href="#" class="sidebar-link icon">
+            <span class="sidebar-link-label">
+                <span class="sidebar-link-icon"></span>
+                {% trans 'Financials' %}
+            </span>
+    </a>
+    <a href="#" class="sidebar-link icon">
+            <span class="sidebar-link-label">
+                <span class="sidebar-link-icon"></span>
+                {% trans 'Inbox' %} <sup>3</sup>
+            </span>
+    </a>
+    <a href="#" class="sidebar-link icon">
+            <span class="sidebar-link-label">
+                <span class="sidebar-link-icon"></span>
+                {% trans 'Staff management' %}
+            </span>
+    </a>
+{% endblock %}
+
+{% block userlinks %}
+    <a href="{% url 'admin:logout' %}">{% trans 'Log out' %}</a>
+{% endblock %}
