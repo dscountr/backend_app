@@ -19,7 +19,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['id', 'email', 'username',
+        fields = ['id', 'first_name', 'last_name', 'email',
                   'phone_number', 'date_of_birth', 'gender']
 
     def create(self, validated_data):
@@ -30,7 +30,9 @@ class LoginSerializer(serializers.Serializer):
     phone_number = PhoneNumberField()
     email = serializers.CharField(max_length=255, read_only=True)
     token = serializers.CharField(max_length=255, read_only=True)
+    first_name = serializers.CharField(max_length=50, read_only=True)
+    last_name = serializers.CharField(max_length=50, read_only=True)
 
     class Meta:
         model = User
-        fields = ['id', 'phone_number', 'token']
+        fields = ['id', 'first_name', 'last_name', 'phone_number', 'token']
