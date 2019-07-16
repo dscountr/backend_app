@@ -1,0 +1,19 @@
+#branding {
+    height: 10rem !important;
+    background-color: #fff;
+}
+
+#branding #site-name {
+    font-size: 24px;
+    text-transform: capitalize;
+    color: #008489;
+    font-weight: 800;
+}
+
+/* .sidebar-link-icon:hover {
+    color: #008489;
+} */
+
+.icon-pin:before:hover {
+    color: #008489;
+}

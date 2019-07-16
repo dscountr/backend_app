@@ -16,6 +16,8 @@ from decouple import config
 import django_heroku
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+PROJECT_DIR = os.path.dirname(BASE_DIR)
+print('PROJECT_DIR', PROJECT_DIR)
 
 
 # Quick-start development settings - unsuitable for production
@@ -33,6 +35,8 @@ ALLOWED_HOSTS = ['localhost', ]
 # Application definition
 
 INSTALLED_APPS = [
+    'jet.dashboard',
+    'jet',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -67,12 +71,16 @@ ROOT_URLCONF = 'dscountr.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
+                'django.template.context_processors.i18n',
+                'django.template.context_processors.media',
+                'django.template.context_processors.static',
+                'django.template.context_processors.tz',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
@@ -141,10 +149,54 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
-
+# STATIC_ROOT = os.path.join(PROJECT_DIR, '/static')
+STATICFILES_DIRS = [
+    # os.path.join(PROJECT_DIR, 'dscountr_backend_app/static'),
+    os.path.join(PROJECT_DIR, 'dscountr_backend_app/core'),
+    ]
+print('STATIC_ROOT', STATICFILES_DIRS)
 AUTH_USER_MODEL = 'authentication.User'
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())
 
 del DATABASES['default']['OPTIONS']['sslmode']
+
+
+# Django JET
+
+JET_DEFAULT_THEME = 'light-green'
+JET_THEMES = [
+    {
+        'theme': 'default',
+        'color': '#47bac1',
+        'title': 'Default'
+    },
+    {
+        'theme': 'green',
+        'color': '#44b78b',
+        'title': 'Green'
+    },
+    {
+        'theme': 'light-green',
+        'color': '#2faa60',
+        'title': 'Light Green'
+    },
+    {
+        'theme': 'light-violet',
+        'color': '#a464c4',
+        'title': 'Light Violet'
+    },
+    {
+        'theme': 'light-blue',
+        'color': '#5EADDE',
+        'title': 'Light Blue'
+    },
+    {
+        'theme': 'light-gray',
+        'color': '#222',
+        'title': 'Light Gray'
+    }
+]
+# JET_INDEX_DASHBOARD = 'dashboard.CustomIndexDashboard'
+# JET_APP_INDEX_DASHBOARD = 'dashboard.CustomAppIndexDashboard'
