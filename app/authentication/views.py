@@ -10,7 +10,7 @@ from ..filters import UserFilter
 
 
 class RegistrationViewSet(ModelViewSet):
-    permission_classes = (IsAuthenticatedOrReadOnly,)
+    permission_classes = (AllowAny,)
     serializer_class = RegistrationSerializer
     queryset = models.User.objects.all()
     http_method_names = ['post', 'get']
