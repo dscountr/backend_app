@@ -70,6 +70,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     class Meta:
         verbose_name_plural = "All Users"
+        ordering = ["-id"]
 
     def __str__(self):
         """
@@ -78,22 +79,22 @@ class User(AbstractBaseUser, PermissionsMixin):
         """
         return self.email
 
-    @property
-    def token(self):
-        """
-        method allows us to get a user's token
-        """
-        return self._generate_firebase_token()
+    # @property
+    # def token(self):
+    #     """
+    #     method allows us to get a user's token
+    #     """
+    #     return self._generate_firebase_token()
 
-    def _generate_firebase_token(self):
-        """
-        Generates a jwt token
-        """
-        user_details = {'email': self.email}
-        token = jwt.encode(
-            {
-                'user_data': user_details,
-                'exp': datetime.now() + timedelta(hours=24)
-            }, settings.SECRET_KEY, algorithm='HS256'
-        )
-        return token.decode('utf-8')
+    # def _generate_firebase_token(self):
+    #     """
+    #     Generates a jwt token
+    #     """
+    #     dt = datetime.now() + timedelta(days=60)
+
+    #     token = jwt.encode({
+    #         'id': self.pk,
+    #         'exp': int(dt.strftime('%s'))
+    #     }, settings.SECRET_KEY, algorithm='HS256')
+
+    #     return token.decode('utf-8')

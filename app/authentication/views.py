@@ -1,18 +1,19 @@
 from rest_framework import status
-from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticated
+from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
 from rest_framework.response import Response
 from rest_framework.generics import get_object_or_404
-from .serializers import (RegistrationSerializer, LoginSerializer)
+from .serializers import (RegistrationSerializer,
+                          LoginSerializer, UserSerializer)
 from . import models
 from ..filters import UserFilter
 
 
 class RegistrationViewSet(ModelViewSet):
-    permission_classes = (AllowAny,)
+    permission_classes = (IsAuthenticatedOrReadOnly,)
     serializer_class = RegistrationSerializer
     queryset = models.User.objects.all()
-    http_method_names = ['post', 'get']
+    http_method_names = ['post', 'get', 'patch']
 
 
 class LoginViewSet(ModelViewSet):
@@ -36,8 +37,8 @@ class LoginViewSet(ModelViewSet):
         return Response(data)
 
 
-class UserViewSet(ModelViewSet):
-    permission_classes = (IsAdminUser, IsAuthenticated)
-    serializer_class = RegistrationSerializer
+class UpdateUserViewSet(ModelViewSet):
+    permission_classes = (IsAuthenticated,)
+    serializer_class = UserSerializer
     queryset = models.User.objects.all()
-    http_method_names = ['post', 'get', 'patch']
+    http_method_names = ['patch', 'get']

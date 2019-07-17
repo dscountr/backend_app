@@ -91,8 +91,6 @@ DATABASES = {
 }
 
 AUTHENTICATION_BACKENDS = (
-    # ... your other backends
-    'app.auth_backend.PasswordlessAuthBackend',
     'django.contrib.auth.backends.ModelBackend',
 )
 
@@ -117,9 +115,7 @@ AUTHENTICATION_BACKENDS = (
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         # 'app.firebase_auth.FirebaseTokenAuthentication',
-        "rest_framework.authentication.TokenAuthentication",
-        "rest_framework.authentication.BasicAuthentication",
-        "rest_framework.authentication.SessionAuthentication",
+        'app.authentication.backends.JWTAuthentication',
 
     ),
     "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",),

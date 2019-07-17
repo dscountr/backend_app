@@ -1,7 +1,7 @@
 from django.conf.urls import include
 from django.urls import path
 from rest_framework.routers import DefaultRouter, SimpleRouter
-from .views import RegistrationViewSet, LoginViewSet
+from .views import RegistrationViewSet, LoginViewSet, UpdateUserViewSet
 from ..user_profile.views import UserProfileViewSet
 
 app_name = 'authentication'
@@ -16,9 +16,10 @@ class OptionalTrailingSlashRouter(SimpleRouter):
 router = OptionalTrailingSlashRouter()
 
 # users
-router.register('users', RegistrationViewSet, 'user')
+router.register('users', RegistrationViewSet, 'users')
 router.register('profiles', UserProfileViewSet, 'profile')
 router.register('login', LoginViewSet, 'login')
+router.register('user', UpdateUserViewSet, 'user')
 
 
 urlpatterns = [
