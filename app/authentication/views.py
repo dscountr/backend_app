@@ -13,7 +13,7 @@ class RegistrationViewSet(ModelViewSet):
     permission_classes = (IsAuthenticatedOrReadOnly,)
     serializer_class = RegistrationSerializer
     queryset = models.User.objects.all()
-    http_method_names = ['post', 'get', 'patch']
+    http_method_names = ['post', 'get']
 
 
 class LoginViewSet(ModelViewSet):

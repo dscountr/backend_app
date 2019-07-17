@@ -52,21 +52,20 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['id', 'email']
+        fields = ['id', 'first_name', 'last_name',
+                  'phone_number', 'email', 'date_of_birth', 'gender']
 
         read_only_fields = ('token',)
 
     def update(self, instance, validated_data):
         """Performs an update on a User."""
 
-        password = validated_data.pop('password')
+        email = validated_data.pop('email')
+        phone_number = validated_data.pop('phone_number')
 
         for (key, value) in validated_data.items():
 
             setattr(instance, key, value)
-
-        if password is not None:
-            instance.set_password(password)
 
         instance.save()
 
