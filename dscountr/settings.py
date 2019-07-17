@@ -116,6 +116,7 @@ REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         # 'app.firebase_auth.FirebaseTokenAuthentication',
         'app.authentication.backends.JWTAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
 
     ),
     "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",),
