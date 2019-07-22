@@ -49,8 +49,10 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser, PermissionsMixin):
 
-    username = models.CharField(
-        db_index=True, max_length=255, unique=True, blank=True, null=True)
+    # username = models.CharField(
+    #     db_index=True, max_length=255, unique=True, blank=True, null=True)
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
     email = models.EmailField(db_index=True, unique=True)
     phone_number = PhoneNumberField(db_index=True, unique=True)
     date_of_birth = models.DateField()
