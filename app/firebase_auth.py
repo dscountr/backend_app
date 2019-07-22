@@ -1,10 +1,10 @@
 import logging
+
+from decouple import config
 from django.contrib.auth import get_user_model
+from firebase_admin import auth, credentials, initialize_app
 from rest_framework import exceptions
 from rest_framework.authentication import TokenAuthentication
-from decouple import config
-from firebase_admin import auth, credentials, initialize_app
-
 
 private_key = config("PRIVATE_KEY").replace("\\n", "\n")
 payload = {

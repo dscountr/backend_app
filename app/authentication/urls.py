@@ -1,14 +1,15 @@
 from django.conf.urls import include
 from django.urls import path
 from rest_framework.routers import DefaultRouter, SimpleRouter
-from .views import RegistrationViewSet, LoginViewSet, UpdateUserViewSet
-from ..user_profile.views import UserProfileViewSet
 
-app_name = 'authentication'
+from ..user_profile.views import UserProfileViewSet
+from .views import LoginViewSet, RegistrationViewSet, UpdateUserViewSet
+
+app_name = "authentication"
 
 
 class OptionalTrailingSlashRouter(SimpleRouter):
-    def __init_(self, trailing_slash='/?'):
+    def __init_(self, trailing_slash="/?"):
         self.trailing_slash = trailing_slash
         super().__init__()
 
@@ -16,10 +17,10 @@ class OptionalTrailingSlashRouter(SimpleRouter):
 router = OptionalTrailingSlashRouter()
 
 # users
-router.register('users', RegistrationViewSet, 'users')
-router.register('profiles', UserProfileViewSet, 'profile')
-router.register('login', LoginViewSet, 'login')
-router.register('user', UpdateUserViewSet, 'user')
+router.register("users", RegistrationViewSet, "users")
+router.register("profiles", UserProfileViewSet, "profile")
+router.register("login", LoginViewSet, "login")
+router.register("user", UpdateUserViewSet, "user")
 
 
 urlpatterns = [

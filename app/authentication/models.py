@@ -1,14 +1,15 @@
-import jwt
 from datetime import datetime, timedelta
-from django.conf import settings
-from django.contrib.auth.models import (
-    AbstractBaseUser, BaseUserManager, PermissionsMixin
-)
-from django.db import models
-from django.core.exceptions import ValidationError
+
+import jwt
 from decouple import config
-from phonenumber_field.modelfields import PhoneNumberField
+from django.conf import settings
+from django.contrib.auth.models import (AbstractBaseUser, BaseUserManager,
+                                        PermissionsMixin)
+from django.core.exceptions import ValidationError
+from django.db import models
 from firebase_admin import auth
+from phonenumber_field.modelfields import PhoneNumberField
+
 from .choices import GENDER_CHOICES
 
 
@@ -16,7 +17,7 @@ class UserManager(BaseUserManager):
     use_in_migrations = True
 
     def createuser(self, **fields):
-        email = fields.pop('email')
+        email = fields.pop("email")
 
         if not email:
             raise ValueError("Email address is required")
@@ -55,15 +56,15 @@ class User(AbstractBaseUser, PermissionsMixin):
     phone_number = PhoneNumberField(db_index=True, unique=True)
     date_of_birth = models.DateField()
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
-    password = models.CharField(max_length=255, default=config('P_WORD'))
+    password = models.CharField(max_length=255, default=config("P_WORD"))
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     # The `USERNAME_FIELD` property specifies the log in field.
-    USERNAME_FIELD = 'phone_number'
-    REQUIRED_FIELDS = ['email', 'date_of_birth', ]
+    USERNAME_FIELD = "phone_number"
+    REQUIRED_FIELDS = ["email", "date_of_birth"]
 
     # the UserManager class should manage objects of this type.
     objects = UserManager()

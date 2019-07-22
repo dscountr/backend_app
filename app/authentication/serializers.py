@@ -1,31 +1,44 @@
 import json
-from rest_framework import serializers
+
+from decouple import config
 from django.contrib.auth import authenticate
-from rest_framework.validators import UniqueValidator
-from .models import User
 from firebase_admin import auth
 from phonenumber_field.serializerfields import PhoneNumberField
-from ..user_profile.models import Profile
+from rest_framework import serializers
+from rest_framework.validators import UniqueValidator
+
 from ..auth_backend import PasswordlessAuthBackend
-from decouple import config
+from ..user_profile.models import Profile
 from .backends import JWTAuthentication
+from .models import User
 
 
 class RegistrationSerializer(serializers.ModelSerializer):
     phone_number = PhoneNumberField(
         validators=[
-            UniqueValidator(queryset=User.objects.all(),
-                            message='User with this Phone Number already exists.',
-                            )],)
+            UniqueValidator(
+                queryset=User.objects.all(),
+                message="User with this Phone Number already exists.",
+            )
+        ]
+    )
     full_name = serializers.SerializerMethodField()
 
     class Meta:
         model = User
-        fields = ['id', 'first_name', 'last_name', 'full_name', 'email',
-                  'phone_number', 'date_of_birth', 'gender']
+        fields = [
+            "id",
+            "first_name",
+            "last_name",
+            "full_name",
+            "email",
+            "phone_number",
+            "date_of_birth",
+            "gender",
+        ]
 
     def get_full_name(self, obj):
-        return f'{obj.first_name} {obj.last_name}'
+        return f"{obj.first_name} {obj.last_name}"
 
     def create(self, validated_data):
         return User.objects.createuser(**validated_data)
@@ -44,7 +57,7 @@ class LoginSerializer(serializers.Serializer):
 
     class Meta:
         model = User
-        fields = ['id', 'first_name', 'last_name', 'phone_number', 'token']
+        fields = ["id", "first_name", "last_name", "phone_number", "token"]
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -52,16 +65,23 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['id', 'first_name', 'last_name',
-                  'phone_number', 'email', 'date_of_birth', 'gender']
+        fields = [
+            "id",
+            "first_name",
+            "last_name",
+            "phone_number",
+            "email",
+            "date_of_birth",
+            "gender",
+        ]
 
-        read_only_fields = ('token',)
+        read_only_fields = ("token",)
 
     def update(self, instance, validated_data):
         """Performs an update on a User."""
 
-        email = validated_data.pop('email')
-        phone_number = validated_data.pop('phone_number')
+        email = validated_data.pop("email")
+        phone_number = validated_data.pop("phone_number")
 
         for (key, value) in validated_data.items():
 

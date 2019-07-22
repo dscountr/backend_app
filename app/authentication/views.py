@@ -1,19 +1,24 @@
 from rest_framework import status
-from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticated, IsAuthenticatedOrReadOnly
-from rest_framework.viewsets import ModelViewSet, GenericViewSet
-from rest_framework.response import Response
 from rest_framework.generics import get_object_or_404
-from .serializers import (RegistrationSerializer,
-                          LoginSerializer, UserSerializer)
-from . import models
+from rest_framework.permissions import (
+    AllowAny,
+    IsAdminUser,
+    IsAuthenticated,
+    IsAuthenticatedOrReadOnly,
+)
+from rest_framework.response import Response
+from rest_framework.viewsets import GenericViewSet, ModelViewSet
+
 from ..filters import UserFilter
+from . import models
+from .serializers import LoginSerializer, RegistrationSerializer, UserSerializer
 
 
 class RegistrationViewSet(ModelViewSet):
     permission_classes = (AllowAny,)
     serializer_class = RegistrationSerializer
     queryset = models.User.objects.all()
-    http_method_names = ['post', 'get']
+    http_method_names = ["post", "get"]
 
 
 class LoginViewSet(ModelViewSet):
@@ -21,10 +26,9 @@ class LoginViewSet(ModelViewSet):
     serializer_class = LoginSerializer
     queryset = models.User.objects.all()
     filterset_class = UserFilter
-    http_method_names = ['get', ]
+    http_method_names = ["get"]
 
-    DEFAULT_LOGIN_DATA = \
-        dict([(field, "") for field in LoginSerializer.Meta.fields])
+    DEFAULT_LOGIN_DATA = dict([(field, "") for field in LoginSerializer.Meta.fields])
 
     def list(self, request, *args, **kwargs):
         phone_number = request.query_params.get("phone_number", "")
@@ -41,4 +45,4 @@ class UpdateUserViewSet(ModelViewSet):
     permission_classes = (IsAuthenticated,)
     serializer_class = UserSerializer
     queryset = models.User.objects.all()
-    http_method_names = ['patch', 'get']
+    http_method_names = ["patch", "get"]

@@ -25,8 +25,7 @@ class BaseFilter(filters.FilterSet):
         if options:
             lookup = functools.reduce(
                 operator.or_,
-                {Q(**{"__".join([name, "icontains"]): item})
-                 for item in options},
+                {Q(**{"__".join([name, "icontains"]): item}) for item in options},
             )
         else:
             lookup = Q(**{})
@@ -52,4 +51,4 @@ class UserFilter(BaseFilter):
 
     class Meta:
         model = User
-        fields = ["phone_number", ]
+        fields = ["phone_number"]
