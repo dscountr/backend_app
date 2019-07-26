@@ -50,6 +50,8 @@ class LoginSerializer(serializers.Serializer):
     token = serializers.SerializerMethodField()
     first_name = serializers.CharField(max_length=50, read_only=True)
     last_name = serializers.CharField(max_length=50, read_only=True)
+    gender = serializers.CharField(max_length=50, read_only=True)
+    date_of_birth = serializers.CharField(max_length=50, read_only=True)
 
     def get_token(self, obj):
         token = JWTAuthentication.generate_token(self, obj.pk)
@@ -57,7 +59,8 @@ class LoginSerializer(serializers.Serializer):
 
     class Meta:
         model = User
-        fields = ["id", "first_name", "last_name", "phone_number", "token"]
+        fields = ["id", "first_name", "last_name",
+                  "phone_number", "token", "gender", "date_of_birth"]
 
 
 class UserSerializer(serializers.ModelSerializer):

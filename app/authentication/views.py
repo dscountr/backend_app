@@ -28,7 +28,8 @@ class LoginViewSet(ModelViewSet):
     filterset_class = UserFilter
     http_method_names = ["get"]
 
-    DEFAULT_LOGIN_DATA = dict([(field, "") for field in LoginSerializer.Meta.fields])
+    DEFAULT_LOGIN_DATA = dict([(field, "")
+                               for field in LoginSerializer.Meta.fields])
 
     def list(self, request, *args, **kwargs):
         phone_number = request.query_params.get("phone_number", "")
