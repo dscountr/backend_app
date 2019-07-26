@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "549e431b79c0985a2228e128bfa630c1265a600ef3f6a6f6170476cc1f595f60"
+            "sha256": "1869e5eaf276d31490b8bf3f66b33a371c27a0e7f7642c22a7253d5749d919c0"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -134,10 +134,10 @@
         },
         "google-api-python-client": {
             "hashes": [
-                "sha256:048da0d68564380ee23b449e5a67d4666af1b3b536d2fb0a02cee1ad540fa5ec",
-                "sha256:5def5a485b1cbc998b8f869456c7bde0c0e6d3d0a5ea1f300b5ef57cb4b1ce8f"
+                "sha256:2e55a5c7b56233c68945b6804c73e253445933f4d485d4e69e321b38772b9dd6",
+                "sha256:60f2ac2f27997d9af10ae126d9937b7d8c1fd061d12668ccaf94b4347ee85021"
             ],
-            "version": "==1.7.9"
+            "version": "==1.7.10"
         },
         "google-auth": {
             "hashes": [
@@ -170,10 +170,10 @@
         },
         "google-cloud-storage": {
             "hashes": [
-                "sha256:10b8a708d71b45589e06d0dc2bcc614e1d1c921902df8d22e374af1fb346ab68",
-                "sha256:4a2a0e2486b1977a4f3e382ed0be118933ecb6a92dc6b2c3d0b56ef8d76ac7a9"
+                "sha256:4e24989b69e37086bd8c219d5502b13540ee9650ab9ea52cd909ad819ea51542",
+                "sha256:6ed0d1c29124554691d6ff58f406062540fc9d8ef50acd59061ec3d5f820b398"
             ],
-            "version": "==1.16.1"
+            "version": "==1.17.0"
         },
         "google-resumable-media": {
             "hashes": [
